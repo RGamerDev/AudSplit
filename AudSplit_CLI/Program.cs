@@ -1,8 +1,6 @@
 ﻿using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
-using Microsoft.VisualBasic;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -26,7 +24,10 @@ namespace AudSplit_CLI
             ExecuteNativePython(Console.ReadLine());
             Console.ReadLine();
         }
-
+        /// <summary>
+        /// Executes the spleeter process with arguments
+        /// </summary>
+        /// <param name="args">The arguments passed onto spleeter</param>
         private static void ExecuteNativePython(string args)
         {
             //TODO: 4)Execute process and get output

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AudSplit_CLI</name>
+    </assembly>
+    <members>
+        <member name="M:AudSplit_CLI.Program.ExecuteNativePython(System.String)">
+            <summary>
+            Executes the spleeter process with arguments
+            </summary>
+            <param name="args">The arguments passed onto spleeter</param>
+        </member>
+    </members>
+</doc>
