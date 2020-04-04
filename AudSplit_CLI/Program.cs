@@ -1,9 +1,13 @@
 ﻿using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Management.Automation;
+using System.Management.Automation.Runspaces;
 using System.Text;
 
 namespace AudSplit_CLI
@@ -11,7 +15,7 @@ namespace AudSplit_CLI
     class Program
     {
         static void Main(string[] args)
-        {   
+        {
             StringBuilder Intro = new StringBuilder();
             Intro.AppendLine("Welcome to the CLI for Spleeter in the DOTNET environment!")
                  .AppendLine("**********************************************************")
@@ -20,39 +24,34 @@ namespace AudSplit_CLI
             Console.WriteLine(Intro);
 
             ExecuteNativePython(Console.ReadLine());
+            Console.ReadLine();
         }
 
         private static void ExecuteNativePython(string args)
         {
-            //TODO: 1)Create Process Info
-            ProcessStartInfo psi = new ProcessStartInfo();
-            psi.FileName = @"D:\Program files\Python\Scripts\spleeter.exe";
-
-            //TODO: 2)Provide arguments
-            psi.Argument = $"\"{args ?? ""}\"\"{}\"";
-
-            //TODO: 3)Process configuration
-            psi.UseShellExecute = false;
-            psi.CreateNoWindow = true;
-            psi.RedirectStandardOutput = true;
-            psi.RedirectStandardError = true;
-
             //TODO: 4)Execute process and get output
-            string errors = "";
-            string results = "";
-
-            using (Process process = Process.Start(psi))
+            using (Process process = Process.Start(new ProcessStartInfo
             {
-                errors = process.StandardError.ReadToEnd();
-                results = process.StandardOutput.ReadToEnd();
-            }
+                //TODO: 1)Create Process Info
+                //FileName = @"D:\Program files\Python\Scripts\spleeter.exe",
+                FileName = @"spleeter.exe",
 
-            //TODO: 5)Display output
-            Console.WriteLine("ERRORS:");
-            Console.WriteLine(errors);
-            Console.WriteLine();
-            Console.WriteLine("Results:");
-            Console.WriteLine(results);
+                //TODO: 2)Provide arguments
+                Arguments = args,
+
+                //TODO: 3)Process configuration
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                CreateNoWindow = true,
+                RedirectStandardError = true
+            }
+            ))
+            {
+                //TODO: 5)Display output
+                Console.WriteLine(process.StandardOutput.ReadToEnd());
+                Console.WriteLine();
+                Console.WriteLine(process.StandardError.ReadToEnd());
+            }
         }
 
         private static void ExecuteIronPython(string args)
@@ -64,7 +63,7 @@ namespace AudSplit_CLI
             string script = "";
             ScriptSource source = engine.CreateScriptSourceFromFile(script);
 
-            engine.GetSysModule().SetVariable("","");
+            engine.GetSysModule().SetVariable("", "");
 
             //TODO: 3)Output redirect
             ScriptIO eIO = engine.Runtime.IO;
@@ -86,6 +85,25 @@ namespace AudSplit_CLI
             Console.WriteLine();
             Console.WriteLine("Results:");
             Console.WriteLine(str(results.ToArray()));
+        }
+
+        private static string ExecutePowershell(string args)
+        {
+            InitialSessionState iss = InitialSessionState.CreateDefault();
+            Runspace rs = RunspaceFactory.CreateRunspace(iss);
+            rs.Open();
+            PowerShell ps = PowerShell.Create(rs);
+            ps.AddCommand("Get-Command");
+            Collection<PSObject> results = ps.Invoke();
+
+            StringBuilder stringBuilder = new StringBuilder();
+
+            foreach (PSObject pSObject in results)
+            {
+                stringBuilder.AppendLine(pSObject.ToString());
+            }
+
+            return stringBuilder.ToString();
         }
     }
 }
