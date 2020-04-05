@@ -181,3 +181,23 @@ app {
         display: block;
     }
 }
+
+.custom-drop-zone {
+    padding: 0 !important;
+    border-style: dashed !important;
+    border-width: 2px !important;
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+    .custom-drop-zone.custom-drag-over {
+        background-color: #868A8D;
+    }
+
+    .custom-drop-zone img {
+        width: 42px;
+        height: 42px;
+    }

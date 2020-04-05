@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudSplit", "AudSplit\AudSplit.csproj", "{C01E46A9-B301-469E-94F9-0B01B20940C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudSplit", "AudSplit\AudSplit.csproj", "{C01E46A9-B301-469E-94F9-0B01B20940C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudSplit_CLI", "AudSplit_CLI\AudSplit_CLI.csproj", "{1BF85970-E42D-4776-8BF5-F8C56E66AB16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudSplit_CLI", "AudSplit_CLI\AudSplit_CLI.csproj", "{1BF85970-E42D-4776-8BF5-F8C56E66AB16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

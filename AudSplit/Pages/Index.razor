@@ -1,5 +1,37 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<div class="card">
+    <h1 class="card-header text-center">Welcome to AudSplit!!!</h1>
 
-Welcome to your new app.
+    <div class="card-body text-center">
+        <p>
+            The web app that splits audio files into their separate STEMS. Build by Spleeter from Deezer.
+            Give it a try! Just upload a file by clicking the file select file button below or drag an audio file into the zone below and you will recieve the STEMS after the server has processed the audio file!
+        </p>
+
+        <div id="DropZone" class="card custom-drop-zone jumbotron">
+            <div class="oi oi-data-transfer-upload"></div>
+            <span>Drag and Drop File Here</span>
+        </div>
+
+
+        <DxUpload Name="UploadFileComponent"
+                  AllowCancel="true"
+                  AllowPause="true"
+                  UploadMode="UploadMode.OnButtonClick"
+                  AllowedFileExtensions="@(new List<string> { ".mp3", ".wav" })"
+                  ShowFileList="true"
+                  UploadUrl="https://localhost:44318/Upload/UploadFile"
+                  ExternalDropZoneCssSelector="#DropZone"
+                  ExternalDropZoneDragOverCssClass="custom-drag-over border-light text-white"
+                  SelectButtonText="Select Audio File"
+                  FileUploadError="@UploadError" />
+    </div>
+</div>
+
+@code {
+    protected void UploadError(FileUploadErrorEventArgs args)
+    {
+        Console.WriteLine(args);
+    }
+}

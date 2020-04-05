@@ -1,0 +1,33 @@
+﻿@page "/todo"
+
+<h3>To do (@todos.Count(todo => !todo.IsDone))</h3>
+
+<ul>
+    @foreach (var todo in todos)
+    {
+        <li style="list-style-type:none">
+            <input type="checkbox" @bind="todo.IsDone"/>
+            <input @bind="todo.Title"/>
+            <button class="btn btn-danger" >Delete</button>
+        </li>
+    }
+</ul>
+
+<input type="text" placeholder="Something to do" @bind="newTodo" />
+<button @onclick="AddTodo">Add to do</button>
+
+@code {
+    private IList<AudSplit.Data.TodoItem> todos = new List<AudSplit.Data.TodoItem>();
+    private string newTodo;
+    private int Id = 0;
+
+    private void AddTodo()
+    {
+        if (!string.IsNullOrWhiteSpace(newTodo))
+        {
+            todos.Add(new Data.TodoItem { Title = newTodo });
+            newTodo = string.Empty;
+            Id++;
+        }
+    }
+}
